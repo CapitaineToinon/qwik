@@ -1,0 +1,8 @@
+{
+    "name": "@speedsouls/zod",
+    "version": "1.0.0",
+    "exports": "./index.ts",
+    "dependencies": {
+        "zod": "^3.21.4"
+    }
+}
