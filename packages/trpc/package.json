@@ -1,10 +1,11 @@
 {
 	"name": "@speedsouls/trpc",
 	"version": "1.0.0",
-	"exports": "./index.ts",
+	"exports": "./src/index.ts",
 	"scripts": {
 		"fmt": "prettier --write .",
-		"fmt.check": "prettier --check ."
+		"fmt.check": "prettier --check .",
+		"lint": "eslint . --ext .ts"
 	},
 	"dependencies": {
 		"@prisma/client": "^4.11.0",

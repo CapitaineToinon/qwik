@@ -1,3 +1,6 @@
 {
-	"include": ["./packages/qwik/*"]
+	"include": ["./packages/qwik/*"],
+	"compilerOptions": {
+		"strict": true
+	}
 }

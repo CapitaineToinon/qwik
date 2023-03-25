@@ -1,5 +1,5 @@
-import { t } from '../server'
-import { auth } from '../middlewares'
+import { t } from '@/server'
+import { auth } from '@/middlewares'
 import { createTodo } from '@speedsouls/zod'
 
 export const todoRouter = t.router({

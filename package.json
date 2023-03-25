@@ -2,8 +2,9 @@
 	"name": "speedsouls",
 	"version": "1.0.0",
 	"scripts": {
-		"fmt": "prettier --write .",
-		"fmt.check": "prettier --check ."
+		"fmt": "prettier --write . && pnpm run -r --parallel fmt",
+		"fmt.check": "prettier --check . && pnpm run -r --parallel fmt.check",
+		"lint": "eslint . --ext .ts,.cjs && pnpm run -r --parallel lint"
 	},
 	"devDependencies": {
 		"@types/eslint": "^8.21.3",

@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server'
-import { t } from '../server'
+import { t } from '@/server'
 
 export const auth = t.middleware(async ({ ctx, next }) => {
 	if (!ctx.user) {

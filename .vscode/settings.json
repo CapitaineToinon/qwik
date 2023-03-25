@@ -1,0 +1,10 @@
+{
+	"eslint.packageManager": "pnpm",
+	"eslint.workingDirectories": [
+		".",
+		"packages/database",
+		"packages/qwik",
+		"packages/trpc",
+		"packages/zod"
+	]
+}

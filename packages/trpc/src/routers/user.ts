@@ -1,4 +1,4 @@
-import { t } from '../server'
+import { t } from '@/server'
 import { createUser } from '@speedsouls/zod'
 import { Prisma } from '@speedsouls/database'
 import { TRPCError } from '@trpc/server'

@@ -1,10 +1,12 @@
 {
 	"name": "@speedsouls/zod",
 	"version": "1.0.0",
-	"exports": "./index.ts",
+	"exports": "./src/index.ts",
+	"types": "./src/index.ts",
 	"scripts": {
 		"fmt": "prettier --write .",
-		"fmt.check": "prettier --check ."
+		"fmt.check": "prettier --check .",
+		"lint": "eslint . --ext .ts"
 	},
 	"dependencies": {
 		"zod": "^3.21.4"

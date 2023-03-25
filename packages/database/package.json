@@ -3,7 +3,10 @@
 	"version": "1.0.0",
 	"exports": "./index.ts",
 	"scripts": {
-		"generate": "prisma generate"
+		"generate": "prisma generate",
+		"fmt": "prettier --write .",
+		"fmt.check": "prettier --check .",
+		"lint": "eslint . --ext .ts"
 	},
 	"devDependencies": {
 		"prisma": "^4.11.0"
