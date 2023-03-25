@@ -1,9 +1,9 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik'
 
 export default component$(() => {
-  return (
-    <>
-      <h1 class="font-bold text-2xl">Awesome Todo</h1>
-    </>
-  );
-});
+	return (
+		<>
+			<h1 class="font-bold text-2xl">Awesome Todo</h1>
+		</>
+	)
+})
