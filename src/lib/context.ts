@@ -2,10 +2,10 @@ import { Cookie, z } from '@builder.io/qwik-city'
 import { user } from '@/zod'
 import { prisma } from '@/lib/prisma'
 import { appRouter } from '@/trpc'
+import type { Context as TRPCContext } from '@/trpc/context'
 
-type Context = {
+type Context = Omit<TRPCContext, "db"> & {
 	trpc: ReturnType<typeof appRouter.createCaller>
-	user: z.infer<typeof user> | null
 }
 
 export function $ctx({
