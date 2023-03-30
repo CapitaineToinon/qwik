@@ -1,4 +1,3 @@
-import { $trpc } from '@/lib/trpc'
 import { component$ } from '@builder.io/qwik'
 import { Form, routeAction$, zod$ } from '@builder.io/qwik-city'
 import { createUser } from '@/zod'
@@ -6,9 +5,9 @@ import { useCurrentUser } from '../layout'
 import { TRPCError } from '@trpc/server'
 
 export const useSignUp = routeAction$(
-	async (params, { fail, redirect, ...req }) => {
+	async (params, { fail, redirect, platform }) => {
 		try {
-			const user = await $trpc(req).user.create(params)
+			const user = await platform.trpc.user.create(params)
 			throw redirect(
 				303,
 				`/sign-in?${new URLSearchParams({ email: user.email })}`

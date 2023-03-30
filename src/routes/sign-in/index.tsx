@@ -1,4 +1,3 @@
-import { $trpc } from '@/lib/trpc'
 import { component$ } from '@builder.io/qwik'
 import { Form, routeAction$, routeLoader$, zod$ } from '@builder.io/qwik-city'
 import { createUser } from '@/zod'
@@ -9,8 +8,8 @@ export const useEmail = routeLoader$(async (req) => {
 })
 
 export const useSignIn = routeAction$(
-	async (params, { fail, redirect, ...req }) => {
-		const user = await $trpc(req).auth.login(params)
+	async (params, { fail, redirect, platform, cookie }) => {
+		const user = await platform.trpc.auth.login(params)
 
 		if (!user) {
 			return fail(400, {
@@ -20,7 +19,7 @@ export const useSignIn = routeAction$(
 
 		const token = JSON.stringify(user)
 
-		req.cookie.set('token', token, {
+		cookie.set('token', token, {
 			httpOnly: true,
 			path: '/',
 			sameSite: 'lax',

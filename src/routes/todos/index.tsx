@@ -1,16 +1,15 @@
-import { $trpc } from '@/lib/trpc'
 import { component$ } from '@builder.io/qwik'
 import { Form, routeAction$, routeLoader$, zod$ } from '@builder.io/qwik-city'
 import { createTodo } from '@/zod'
 
-export const useTodos = routeLoader$(async (req) => {
+export const useTodos = routeLoader$(async ({ platform }) => {
 	return {
-		todos: await $trpc(req).todo.list(),
+		todos: await platform.trpc.todo.list(),
 	}
 })
 
-export const useCreateTodo = routeAction$(async (params, req) => {
-	await $trpc(req).todo.create(params)
+export const useCreateTodo = routeAction$(async (params, { platform }) => {
+	await platform.trpc.todo.create(params)
 }, zod$(createTodo))
 
 export default component$(() => {
