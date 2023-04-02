@@ -11,7 +11,6 @@ export const useToggleTodo = routeAction$(async (params, { platform }) => {
 }, zod$(toggleTodo))
 
 export const useCreateTodo = routeAction$(async (params, { platform }) => {
-	await new Promise((resolve) => setTimeout(resolve, 1000))
 	await platform.trpc.todo.create(params)
 }, zod$(createTodo))
 
