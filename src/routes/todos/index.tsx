@@ -1,46 +1,70 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, useComputed$ } from '@builder.io/qwik'
 import { Form, routeAction$, routeLoader$, zod$ } from '@builder.io/qwik-city'
-import { createTodo } from '@/zod'
+import { createTodo, toggleTodo } from '@/zod'
 
 export const useTodos = routeLoader$(async ({ platform }) => {
-	return {
-		todos: await platform.trpc.todo.list(),
-	}
+	return await platform.trpc.todo.list()
 })
 
+export const useToggleTodo = routeAction$(async (params, { platform }) => {
+	await platform.trpc.todo.toggle(params)
+}, zod$(toggleTodo))
+
 export const useCreateTodo = routeAction$(async (params, { platform }) => {
+	await new Promise((resolve) => setTimeout(resolve, 1000))
 	await platform.trpc.todo.create(params)
 }, zod$(createTodo))
 
 export default component$(() => {
 	const todos = useTodos()
-	const action = useCreateTodo()
+	const createTodoAction = useCreateTodo()
+	const toggleTodoAction = useToggleTodo()
+
+	const done = useComputed$(
+		() => todos.value.filter((todo) => todo.done).length
+	)
 
 	return (
 		<>
-			<h1 class="text-2xl font-bold">Todos</h1>
+			<h1 class="text-2xl font-bold">
+				Todos ({done.value}/{todos.value.length})
+			</h1>
 
 			<ul>
-				{todos.value.todos.map((todo) => (
-					<li key={todo.id}>{todo.title}</li>
+				{todos.value.map((todo) => (
+					<li key={todo.id}>
+						<Form action={toggleTodoAction}>
+							<input
+								type="hidden"
+								name={toggleTodo.keyof().Enum.id}
+								value={todo.id}
+							/>
+							<button class="flex gap-1">
+								<span class={todo.done ? 'line-through' : ''}>
+									{todo.title}
+								</span>
+								{todo.done && <span>✅</span>}
+							</button>
+						</Form>
+					</li>
 				))}
 			</ul>
 
 			<Form
-				action={action}
+				action={createTodoAction}
 				spaReset
 			>
 				<fieldset
-					disabled={action.isRunning}
+					disabled={createTodoAction.isRunning}
 					class="flex flex-col gap-3"
 				>
 					<input
 						type="text"
-						name="title"
+						name={createTodo.keyof().Enum.title}
 						class="border"
 					/>
-					{action.value?.fieldErrors?.title && (
-						<div>{action.value.fieldErrors.title}</div>
+					{createTodoAction.value?.fieldErrors?.title && (
+						<div>{createTodoAction.value.fieldErrors.title}</div>
 					)}
 					<button type="submit">Create todo</button>
 				</fieldset>

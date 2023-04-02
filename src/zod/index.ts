@@ -11,5 +11,9 @@ export const createUser = z.object({
 
 export const createTodo = z.object({
 	title: z.string().min(1),
-	done: z.boolean().optional(),
+	done: z.coerce.boolean().default(false),
+})
+
+export const toggleTodo = z.object({
+	id: z.coerce.number(),
 })
